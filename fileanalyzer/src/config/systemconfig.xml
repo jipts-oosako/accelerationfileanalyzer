@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+	<system>
+		<!-- 計測ファイルの設定 -->
+		<measurementfile xml:space="preserve">
+			<!-- 項目区切り文字(半角スペースの場合) -->
+			<separator> </separator>
+		</measurementfile>
+		<!-- 計算実行条件 -->
+		<processing>
+			<!-- 並列処理の場合true、順列処理の場合false -->
+			<parallel>true</parallel>
+			<!-- ゼロ補正を行う方法(0:ファイル全体の平均値を用いる、1:抽出結果の平均値を用いる) -->
+			<zerohoseimethod>1</zerohoseimethod>
+		</processing>
+		<!-- GUIの設定内容 -->
+		<guisetting>
+			<!-- 時間指定の領域抽出の設定ファイル -->
+			<settingfiletde></settingfiletde>
+			<!-- 特徴領域の検索の設定ファイル -->
+			<settingfilefps></settingfilefps>
+		</guisetting>
+	</system>
+</configuration>

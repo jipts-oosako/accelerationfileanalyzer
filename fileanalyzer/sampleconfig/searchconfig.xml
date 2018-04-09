@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- 計測ファイルの条件 -->
+	<measurement>
+		<!-- 計測データの格納ディレクトリ (空白の場合、このファイルが置かれているディレクトリ) -->
+		<datadir></datadir>
+
+		<!-- 対象とする計測ファイル名称 -->
+		<filepattern>031-0015\.csv</filepattern>
+<!-- 	複数のcsvファイルを対象とする場合の表記 -->
+<!--	<filepattern>(010-0015|031-0015)\.csv</filepattern> -->
+
+		<!-- 計測開始時刻 "yyyy/MM/dd hh:mm:ss SSS" -->
+		<starttime>2016/09/06 11:12:00 000</starttime>
+
+		<!-- 計測周波数(Hz) -->
+		<frequency>100</frequency>
+
+	</measurement>
+
+	<!-- 特徴領域の検出条件 -->
+	<detection>
+		<!-- 常時微動と判定する際の境界値(G)(=標準偏差) -->
+		<nearzero>0.0003</nearzero>
+		<!-- 常時微動の判定時間(s)) -->
+		<endduration>5.0</endduration>
+		<!-- 検出時間の下限値(s)(※ 常時微動の判定時間以上とする)-->
+		<minduration>5.0</minduration>
+		<!-- 検出時間の上限値(s) -->
+		<maxduration>180.0</maxduration>
+		<!-- 検出直前に割り込ませる余裕時間(s) -->
+		<prebuffer>1.0</prebuffer>
+		<!-- 各軸の検出境界値(G)(=最大値と最小値との差、ピークピーク値) -->
+		<boundary axis_x="0.003000" axis_y="0.003000" axis_z="0.003000"></boundary>
+	</detection>
+
+	<output>
+		<!-- 特徴領域の検出結果の出力ディレクトリ(計測データの格納ディレクトリに生成) -->
+		<dirname>特徴領域情報</dirname>
+	</output>
+
+</configuration>
