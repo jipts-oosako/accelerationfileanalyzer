@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "dev": "nw src/",
+    "build": "nwbuild -p win32,win64 -o build/ src/"
+  },
+  "devDependencies": {
+    "nw": "^0.29.3",
+    "nw-builder": "^3.5.1"
+  }
+}

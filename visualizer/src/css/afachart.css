@@ -1,0 +1,71 @@
+/* コンテンツ要素 */
+.menubox {
+	line-height: 30px;
+}
+.infomationarea {
+    color: red;
+}
+#container {
+	width: 100%;
+	position: relative;
+	background-color: #f8f8ff;
+	margin-right: 50px;
+}
+#headtitle {
+	padding: 5px 20px 5px 5px;
+	background-color: #87cefa;
+}
+#menu {
+	height: 220px;
+	width: 97%;
+	position: fixed;
+	z-index: 999;
+	background-color: #f0f8ff;
+	padding: 5px;
+	border: thin solid #000000;
+}
+#content {
+  padding: 220px 0 0 0;	/*menuのheightに合わせる*/
+}
+#svglistID dt{
+    display:block;
+    width:200px;
+    height:1em;
+    line-height:1em;
+    text-align:center;
+    border:#666 1px solid;
+    cursor:pointer;
+	background-color: #ffe4e1;
+	padding: 2px;
+}
+#svglistID dd{
+    background:#f2f2f2;
+    text-align:center;
+    border:#666 1px solid;
+}
+
+/* svg要素 */
+.axis text {
+    font: 10px sans-serif;
+}
+
+.axis path {
+    fill: #80EAFF;
+    opacity: 0.05;
+    stroke: #000;
+    stroke-width: 10;
+    shape-rendering: crispEdges;
+}
+
+.axis line {
+    stroke: #000;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.line {
+    fill: none;
+    stroke: DarkGreen;
+    stroke-width: 1;
+}
+
