@@ -15,11 +15,6 @@ import org.apache.logging.log4j.Logger;
  * システム コンフィグファイルの読み込み
  */
 public class SystemConfigurations {
-	/** ファイル全体の平均値でゼロ補正を行う */
-	public static final int ZEROHOSEI_FILE_AVERAGE = 0;
-	/** 抽出結果の平均値でゼロ補正を行う */
-	public static final int ZEROHOSEI_EXTRACT_AVERAGE = 1;
-
 	private static SystemConfigurations singleton = null;
 
 	/**
@@ -47,15 +42,6 @@ public class SystemConfigurations {
 
 	/** 並列処理の実行可否 */
 	private boolean parallelProcessing;
-
-	/** ゼロ補正を行う方法
-	 * <ul>
-	 * <li> ZEROHOSEI_MODE:ファイル全体の最頻値を用いる
-	 * <li> ZEROHOSEI_FILE_AVERAGE:ファイル全体の平均値を用いる
-	 * <li> ZEROHOSEI_EXTRACT_AVERAGE:抽出結果の平均値を用いる
-	 * </ul>
-	 **/
-	private int zeroHoseiMethod;
 
 	/** 時間指定の領域抽出の設定ファイル */
 	private String settingfiletde = "";
@@ -89,12 +75,6 @@ public class SystemConfigurations {
 
 			// 並列処理の実行可否
 			parallelProcessing = config.getBoolean("system.processing.parallel");
-
-			// ゼロ補正を行う方法
-			zeroHoseiMethod = config.getInt("system.processing.zerohoseimethod");
-			if (!(zeroHoseiMethod==ZEROHOSEI_FILE_AVERAGE || zeroHoseiMethod==ZEROHOSEI_EXTRACT_AVERAGE)){
-				throw new ConfigurationException(AppMessages.SYSTEM.get("SYS002"));
-			}
 
 			// 時間指定の領域抽出の設定ファイル
 			settingfiletde = config.getString("system.guisetting.settingfiletde");
@@ -144,13 +124,6 @@ public class SystemConfigurations {
 	}
 
 	/**
-	 * ゼロ補正を行う方法を取得する
-	 *  @return ZEROHOSEI_MODE:最頻値、ZEROHOSEI_AVERAGE:平均値
-	 */
-	public int getZeroHoseiMethod() {
-		return zeroHoseiMethod;
-	}
-	/**
 	 *  並列処理の実行可否
 	 *  @return 並列処理実行:true
 	 */
@@ -194,11 +167,9 @@ public class SystemConfigurations {
 		String ret = String.format("システム設定ファイル:[%s]\n"
 								+  "区切り文字:[%s]\n"
 								+  "並列処理:[%s]\n"
-								+  "ゼロ補正方法:[%s]\n"
 									, configfile.getAbsolutePath()
 									, (separator.equals(" "))? "(半角スペース)" : separator
-									, ((parallelProcessing)? "する": "しない")
-									, (zeroHoseiMethod==ZEROHOSEI_FILE_AVERAGE)? "ファイル全体の平均値": "抽出結果の平均値");
+									, ((parallelProcessing)? "する": "しない"));
 		return ret;
 	}
 }

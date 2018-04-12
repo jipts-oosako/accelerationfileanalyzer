@@ -89,18 +89,18 @@ public class CollaborationData {
 
 	/**
 	 * 軸毎の情報をセットする
-	 * @param localAverages 全計測データの軸毎の平均値（G）[0:X軸, 1:Y軸, 2:Z軸]
+	 * @param originalAverages ゼロ補正前の軸毎の平均値（G）[0:X軸, 1:Y軸, 2:Z軸]
 	 * @param averages 軸毎の平均値（G）[0:X軸, 1:Y軸, 2:Z軸]
 	 * @param mmvalues 軸毎の最小値、最大値（G）[0:X軸, 1:Y軸, 2:Z軸]
 	 * */
-	public void setAxisData(double[] localAverages, double[] averages, MinMaxData[] mmvalues) {
+	public void setAxisData(double[] originalAverages, double[] averages, MinMaxData[] mmvalues) {
 		AxisData axisX = this.axisData.get(Constants.AXIS_StrX);
 		AxisData axisY = this.axisData.get(Constants.AXIS_StrY);
 		AxisData axisZ = this.axisData.get(Constants.AXIS_StrZ);
 
-		axisX.setGlobalaverage(localAverages[Constants.AXIS_X]);
-		axisY.setGlobalaverage(localAverages[Constants.AXIS_Y]);
-		axisZ.setGlobalaverage(localAverages[Constants.AXIS_Z]);
+		axisX.setOriginalAverage(originalAverages[Constants.AXIS_X]);
+		axisY.setOriginalAverage(originalAverages[Constants.AXIS_Y]);
+		axisZ.setOriginalAverage(originalAverages[Constants.AXIS_Z]);
 
 		axisX.setAverage(averages[Constants.AXIS_X]);
 		axisY.setAverage(averages[Constants.AXIS_Y]);
