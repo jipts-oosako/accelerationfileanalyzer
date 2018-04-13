@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="WARN" monitorInterval="30">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+		<RollingFile name="TimeDomainExtraction" fileName="logs/TimeDomainExtraction.log" filePattern="logs/TimeDomainExtraction-%d-%i.log">
+			<PatternLayout>
+<!--			<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>-->
+				<Pattern>%d %p [%t] %m%n</Pattern>
+			</PatternLayout>
+	        <Policies>
+	            <SizeBasedTriggeringPolicy size="10MB" />
+	        </Policies>
+	        <DefaultRolloverStrategy max="10"/>
+		</RollingFile>
+
+		<RollingFile name="FeaturePointSearch" fileName="logs/FeaturePointSearch.log" filePattern="logs/FeaturePointSearch-%d-%i.log">
+			<PatternLayout>
+				<Pattern>%d %p [%t] %m%n</Pattern>
+			</PatternLayout>
+	        <Policies>
+	            <SizeBasedTriggeringPolicy size="10MB" />
+	        </Policies>
+	        <DefaultRolloverStrategy max="10"/>
+		</RollingFile>
+
+		<RollingFile name="FeaturePointSearchMinMaxData" fileName="logs/FeaturePointSearchMinMaxData.log" filePattern="logs/FeaturePointSearchMinMaxData-%d.log">
+			<PatternLayout>
+				<Pattern>%d %p [%t] %m%n</Pattern>
+			</PatternLayout>
+	        <Policies>
+	            <SizeBasedTriggeringPolicy size="10MB" />
+	        </Policies>
+	        <DefaultRolloverStrategy max="5"/>
+		</RollingFile>
+
+		<RollingFile name="Configurations" fileName="logs/Configurations.log" filePattern="logs/Configurations-%d.log">
+			<PatternLayout>
+<!--			<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>-->
+				<Pattern>%d %p [%t] %m%n</Pattern>
+			</PatternLayout>
+	        <Policies>
+	            <SizeBasedTriggeringPolicy size="10MB" />
+	        </Policies>
+	        <DefaultRolloverStrategy max="5"/>
+		</RollingFile>
+
+		<RollingFile name="MainFrame" fileName="logs/Mainframe.log" filePattern="logs/Mainframe-%d.log">
+			<PatternLayout>
+				<Pattern>%d %p [%t] %m%n</Pattern>
+			</PatternLayout>
+	        <Policies>
+	            <SizeBasedTriggeringPolicy size="10MB" />
+	        </Policies>
+	        <DefaultRolloverStrategy max="5"/>
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="jp.kougiken.sensing.acceleration.fileanalyzer.timedomainextraction" level="info">
+			<AppenderRef ref="TimeDomainExtraction" />
+		</Logger>
+
+		<Logger name="jp.kougiken.sensing.acceleration.fileanalyzer.featurepointsearch" level="info">
+			<AppenderRef ref="FeaturePointSearch" />
+		</Logger>
+		<Logger name="jp.kougiken.sensing.acceleration.fileanalyzer.featurepointsearch.data.MinMaxData" level="info">
+			<AppenderRef ref="FeaturePointSearchMinMaxData" />
+		</Logger>
+
+		<Logger name="jp.kougiken.sensing.acceleration.common" level="info">
+			<AppenderRef ref="Configurations" />
+		</Logger>
+
+		<Logger name="jp.kougiken.sensing.acceleration.fileanalyzer.gui" level="info">
+			<AppenderRef ref="MainFrame" />
+		</Logger>
+
+		<Root level="info">
+ 			<AppenderRef ref="Console" />
+		</Root>
+	</Loggers>
+</Configuration>

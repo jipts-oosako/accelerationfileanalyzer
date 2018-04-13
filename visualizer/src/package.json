@@ -1,0 +1,21 @@
+{
+  "main": "index.html",
+  "name": "Visualizer",
+  "description": "Visualizer Application of node-webkit",
+  "version": "1.1.0",
+  "keywords": [ "Visualizer", "node-webkit" ],
+  "window": {
+    "title": "Visualizer for AccelerationFileAnalyzer",
+    "icon": "icon.png",
+    "toolbar": true,
+    "frame": true,
+    "width": 1024,
+    "height": 768,
+    "position": "center",
+    "min_width": 800,
+    "min_height": 600
+  },
+  "webkit": {
+    "plugin": false
+  }
+}
