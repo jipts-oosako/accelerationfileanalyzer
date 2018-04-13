@@ -5,7 +5,7 @@
 	<groupId>jp.kougiken.sensing.acceleration.fileanalyzer</groupId>
 	<artifactId>accelerationfileanalyzer</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.3</version>
+	<version>1.1.0</version>
 	<name>accelerationfileanalyzer</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -51,6 +51,7 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.3</version>
 				<configuration>
+					<finalName>${project.artifactId}</finalName>
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
@@ -67,10 +68,8 @@
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.5.2</version>
 				<configuration>
+					<finalName>${project.artifactId}</finalName>
 					<descriptor>src/main/assembly/executable.xml</descriptor>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
 					<archive>
 						<manifest>
 							<mainClass>jp.kougiken.sensing.acceleration.fileanalyzer.gui.MainFrame</mainClass>
@@ -87,34 +86,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
-<!-- 依存ライブラリを統合した実行可能なjarを作成 -->
-<!--
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.5.2</version>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<archive>
-						<manifest>
-							<mainClass>jp.kougiken.sensing.acceleration.fileanalyzer.gui.MainFrame</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
--->
 		</plugins>
 	</build>
   	<dependencies>

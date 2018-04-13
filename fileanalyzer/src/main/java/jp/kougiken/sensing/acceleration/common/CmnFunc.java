@@ -68,8 +68,7 @@ public class CmnFunc {
 	 */
 	public static String getSystemInfomation() {
 		String msg = "";
-        String progVersion = CmnFunc.class.getPackage().getImplementationVersion();
-		msg += String.format("ProgVersion:%s\n", progVersion);
+		msg += String.format("ProductVersion:%s\n", Constants.PRODUCT_VERSION);
 		msg += String.format("JavaVersion:%s\n", System.getProperty("java.version"));
 		msg += String.format("OSVersion  :%s\n", System.getProperty("os.name"));
 		msg += String.format("OSArchitect:%s\n", System.getProperty("os.arch"));
