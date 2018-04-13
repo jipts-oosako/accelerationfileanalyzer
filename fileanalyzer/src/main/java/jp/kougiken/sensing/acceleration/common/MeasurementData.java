@@ -12,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * 計測データの1行分の情報
+ * Information for one line of measurement data - 計測データの1行分の情報
  */
 public class MeasurementData {
 
@@ -88,7 +88,7 @@ public class MeasurementData {
 	 * ゼロ補正値を適用する
 	 * @param 指定軸における、ゼロ点からのずれの平均値(G)[0:X軸, 1:Y軸, 2:Z軸]
 	 */
-	public void applyingZerocorrections(double[] zerocorrections, String separator) {
+	public void applyingZerocorrections(double[] zerocorrections) {
 		measureX = measureX - zerocorrections[Constants.AXIS_X];
 		measureY = measureY - zerocorrections[Constants.AXIS_Y];
 		measureZ = measureZ - zerocorrections[Constants.AXIS_Z];

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * メッセージ定義クラス
+ * Message definition - メッセージ定義クラス
  */
 public final class AppMessages {
     public static final Map<String ,String> SYSTEM = new HashMap<String ,String>() {

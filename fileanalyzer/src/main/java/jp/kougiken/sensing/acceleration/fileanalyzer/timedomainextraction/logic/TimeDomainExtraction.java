@@ -44,7 +44,6 @@ import jp.kougiken.sensing.acceleration.common.Constants;
 import jp.kougiken.sensing.acceleration.common.MeasurementData;
 import jp.kougiken.sensing.acceleration.common.SystemConfigurations;
 import jp.kougiken.sensing.acceleration.common.UpdateListener;
-import jp.kougiken.sensing.acceleration.common.ZeroCorrection;
 import jp.kougiken.sensing.acceleration.fileanalyzer.featurepointsearch.data.MinMaxData;
 import jp.kougiken.sensing.acceleration.fileanalyzer.timedomainextraction.config.ExtractionConfig;
 import jp.kougiken.sensing.acceleration.fileanalyzer.timedomainextraction.config.MeasurementConfig;
@@ -52,7 +51,7 @@ import jp.kougiken.sensing.acceleration.fileanalyzer.timedomainextraction.data.C
 import jp.kougiken.sensing.acceleration.fileanalyzer.timedomainextraction.data.DatafileInfo;
 
 /**
- * Time specified region extraction.（時間指定の領域抽出）
+ * Time specified region extraction - 時間指定の領域抽出
  *
  */
 public class TimeDomainExtraction extends SwingWorker<String, String> implements UpdateListener {
@@ -67,9 +66,10 @@ public class TimeDomainExtraction extends SwingWorker<String, String> implements
 
 	private MeasurementConfig measurementConfig = null;
 
-	// 計測ファイルの区切り文字
+	/** 計測ファイルの区切り文字 */
 	private String sysSeparator = "";
-	// 並列処理の実施可否
+
+	/** 並列処理の実施可否 */
 	private boolean sysParallelProcessing = true;
 
 	/**
@@ -302,12 +302,9 @@ public class TimeDomainExtraction extends SwingWorker<String, String> implements
 				// 計測データ情報を取得
 				DatafileInfo datafileInfo = DatafileInfo.getDatafileInfo(datafile.toPath(), measurementConfig.getFrequency(), sysSeparator);
 				if (datafileInfo!=null){
-					// ゼロ補正値（G）[0:X軸, 1:Y軸, 2:Z軸]
-					double[] zerocorrections = getZeroCorrections(datafileInfo);
-
 					List<ExtractionConfig> extractList = measurementConfig.getExtractionConfig();
 					extractList.parallelStream().forEach(extractionConfig -> {
-						CollaborationData clb = extract(measurementConfig, extractionConfig, datafileInfo, zerocorrections);
+						CollaborationData clb = extract(measurementConfig, extractionConfig, datafileInfo);
 						if (clb != null) clbs.add(clb);
 						update(String.format("file:%s - 時間指定の領域抽出処理...", datafile.getName()));
 					});
@@ -322,12 +319,9 @@ public class TimeDomainExtraction extends SwingWorker<String, String> implements
 				// 計測データ情報を取得
 				DatafileInfo datafileInfo = DatafileInfo.getDatafileInfo(datafile.toPath(), measurementConfig.getFrequency(), sysSeparator);
 				if (datafileInfo!=null){
-					// ゼロ補正値（G）[0:X軸, 1:Y軸, 2:Z軸]
-					double[] zerocorrections = getZeroCorrections(datafileInfo);
-
 					List<ExtractionConfig> extractList = measurementConfig.getExtractionConfig();
 					for (ExtractionConfig extractionConfig: extractList){
-						CollaborationData clb = extract(measurementConfig, extractionConfig, datafileInfo, zerocorrections);
+						CollaborationData clb = extract(measurementConfig, extractionConfig, datafileInfo);
 						if (clb != null) clbs.add(clb);
 						update(String.format("file:%s - 時間指定の領域抽出処理...", datafile.getName()));
 					}
@@ -349,19 +343,6 @@ public class TimeDomainExtraction extends SwingWorker<String, String> implements
 		Path outputDir = measurementConfig.getOutputExtractdir();
 		String outputfile = Paths.get(outputDir.toString(), "collaboration.json").toString();
 
-/*
-//		Gson gson = new Gson();
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-		// オブジェクトを一括出力する → AxisDataが配列になる
-		try(FileWriter fw = new FileWriter(outputfile)) {
-			gson.toJson(clbs, fw);
-		} catch (JsonIOException e) {
-			logger.error("IOException", e);
-		} catch (IOException e) {
-			logger.error("IOException", e);
-		}
-*/
 		// オブジェクトを要素毎に出力する
 		String FMTF6 = "%.6f";
 		try (JsonWriter writer = new JsonWriter(new FileWriter(outputfile))) {
@@ -379,7 +360,7 @@ public class TimeDomainExtraction extends SwingWorker<String, String> implements
 
 				for (int axis = Constants.AXIS_X; axis < Constants.AXIS_NUM; axis++) {
 					String axisname = (axis == Constants.AXIS_X)? Constants.AXIS_StrX : (axis == Constants.AXIS_Y)? Constants.AXIS_StrY : Constants.AXIS_StrZ;
-					writer.name(axisname+"_globalaverage").value(String.format(FMTF6, data.getAxisData()[axis].getGlobalaverage()));
+					writer.name(axisname+"_originalaverage").value(String.format(FMTF6, data.getAxisData()[axis].getGlobalaverage()));
 					writer.name(axisname+"_average").value(String.format(FMTF6, data.getAxisData()[axis].getAverage()));
 					writer.name(axisname+"_minvalue").value(String.format(FMTF6, data.getAxisData()[axis].getMinvalue()));
 					writer.name(axisname+"_maxvalue").value(String.format(FMTF6, data.getAxisData()[axis].getMaxvalue()));
@@ -394,37 +375,6 @@ public class TimeDomainExtraction extends SwingWorker<String, String> implements
 			logger.error("IOException", e);
 		}
 	}
-	/**
-	 * ゼロ補正値（G）
-	 * @param datafileInfo
-	 *		  計測データファイルの情報
-	 * @throws IOException
-	 * @return zeroCorrections	[0:X軸, 1:Y軸, 2:Z軸]
-	 */
-	protected double[] getZeroCorrections(DatafileInfo datafileInfo){
-		// ゼロ補正値
-		double[] zeroCorrections = {0.0, 0.0, 0.0};
-
-		// ファイル全体の平均値でゼロ補正を行う場合、ゼロ補正値を算出する
-		if (SystemConfigurations.getInstance().getZeroHoseiMethod() == SystemConfigurations.ZEROHOSEI_FILE_AVERAGE &&
-			measurementConfig.getZeroHosei()) {
-			// 処理対象のファイル名
-			String filename = datafileInfo.getDatafilePath().toFile().getName();
-
-			long time = stopWatch.getTime();
-			int allLineNums = (int)(datafileInfo.getAllLinenum());
-
-			try {
-				logger.trace("ゼロ補正値の算出処理開始[{}]", filename);
-				zeroCorrections = new ZeroCorrection(datafileInfo.getDatafilePath(), allLineNums, this).getZeroCorrectionValues();
-				logger.trace(String.format("ゼロ補正値の算出処理終了[%s](処理時間[.3f(s)])", filename, (stopWatch.getTime() - time)/1000.0));
-			} catch (IOException e) {
-				logger.error("IOException", e);
-			}
-		}
-
-		return zeroCorrections;
-	}
 
 	/**
 	 * 時間指定抽出（ファイル毎-抽出条件毎）
@@ -434,11 +384,9 @@ public class TimeDomainExtraction extends SwingWorker<String, String> implements
 	 * 		  抽出条件
 	 * @param datafileInfo
 	 *		  計測データファイルの情報
-	 * @param zerocorrections
-	 *		  ゼロ補正値（G）[0:X軸, 1:Y軸, 2:Z軸]
 	 * @return 外部連携出力オブジェクト
 	 */
-	protected CollaborationData extract(MeasurementConfig measurementConfig, ExtractionConfig extractionConfig, DatafileInfo datafileInfo, double[] zerocorrections) {
+	protected CollaborationData extract(MeasurementConfig measurementConfig, ExtractionConfig extractionConfig, DatafileInfo datafileInfo) {
 
 		// 外部連携出力オブジェクト
 		CollaborationData clb = null;
@@ -508,8 +456,11 @@ public class TimeDomainExtraction extends SwingWorker<String, String> implements
 				// 計測ファイルの区切り文字
 				String separator = SystemConfigurations.getInstance().getSeparator();
 
+				// ゼロ補正値（G）[0:X軸, 1:Y軸, 2:Z軸]
+				double[] zerocorrections = {0.0, 0.0, 0.0};
+
 				// 抽出結果の平均値でゼロ補正して出力する場合
-				if (SystemConfigurations.getInstance().getZeroHoseiMethod()==SystemConfigurations.ZEROHOSEI_EXTRACT_AVERAGE && measurementConfig.getZeroHosei()){
+				if (measurementConfig.getZeroHosei()){
 					int recordcount = 0;
 					for (MeasurementData tdd : extractData) {
 						zerocorrections[Constants.AXIS_X] = (recordcount * zerocorrections[Constants.AXIS_X] + tdd.getMeasureX()) / (double)(recordcount + 1);
@@ -526,7 +477,7 @@ public class TimeDomainExtraction extends SwingWorker<String, String> implements
 				int recordcount = 0;
 				for (MeasurementData tdd : extractData) {
 					if (measurementConfig.getZeroHosei()) {
-						tdd.applyingZerocorrections(zerocorrections, separator);	// ゼロ補正値を適用
+						tdd.applyingZerocorrections(zerocorrections);	// ゼロ補正値を適用
 					}
 					mmvalues[Constants.AXIS_X].set(tdd.getMeasureX());
 					mmvalues[Constants.AXIS_Y].set(tdd.getMeasureY());
@@ -549,7 +500,7 @@ public class TimeDomainExtraction extends SwingWorker<String, String> implements
 				clb.setStartdatetime(startdatetime.format(Constants.outputJsonFormatter));
 				clb.setRecordingtime(recordingtime);
 				clb.setRecordcount(recordcount);
-				clb.setAxisData(zerocorrections,	// ゼロ補正値を、全計測データの平均値とする
+				clb.setAxisData(zerocorrections,	// ゼロ補正値=ゼロ補正前の平均値
 								averages,
 								mmvalues);
 

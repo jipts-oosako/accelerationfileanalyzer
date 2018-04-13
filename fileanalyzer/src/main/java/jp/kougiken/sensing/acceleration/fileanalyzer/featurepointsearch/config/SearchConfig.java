@@ -22,6 +22,9 @@ import org.apache.logging.log4j.Logger;
 import jp.kougiken.sensing.acceleration.common.AppMessages;
 import jp.kougiken.sensing.acceleration.common.Constants;
 
+/**
+ * Search condition - 検索条件の設定
+ */
 public class SearchConfig {
     private static final Logger logger = LogManager.getLogger();
 

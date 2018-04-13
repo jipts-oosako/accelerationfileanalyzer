@@ -45,7 +45,7 @@ import jp.kougiken.sensing.acceleration.fileanalyzer.featurepointsearch.config.S
 import jp.kougiken.sensing.acceleration.fileanalyzer.featurepointsearch.data.RegionData;
 
 /**
- * Search of the feature point area（特徴領域の検索）
+ * Search of the feature point area - 特徴領域の検索
  *
  */
 public class FeaturePointSearch extends SwingWorker<String, String> implements UpdateListener {
@@ -499,7 +499,6 @@ public class FeaturePointSearch extends SwingWorker<String, String> implements U
 //							stdev = Math.sqrt(StatUtils.populationVariance(zeroranges.getElements()));					// 標準偏差＝SQRT(母分散)
 							stdev = Math.sqrt(StatUtils.variance(zeroranges.getElements()));							// 標本標準偏差＝SQRT(標本分散)
 
-//							logger.trace(String.format("--- RMS:%.6f MEAN:%.6f ZERO:%.6f", rms, mean, detectionConfig.getNearzero()));
 							// ほぼZeroとみなせる場合、1件の検出処理を終了する
 							if (stdev < detectionConfig.getNearzero()){
 								bEnd = true;
@@ -512,7 +511,6 @@ public class FeaturePointSearch extends SwingWorker<String, String> implements U
 							startTime = -1.0;
 							peakToPeak.clear();
 							zeroranges.clear();
-//							measurementDataList.forEach(x -> logger.trace(" "+x));
 							measurementDataList = null;
 						}
 					}
@@ -521,10 +519,8 @@ public class FeaturePointSearch extends SwingWorker<String, String> implements U
 
 			// ファイル終了時に検出中となっていた場合、検出対象とする
 			if (startTime > 0.0 && (mdata.getElapsedTime() - startTime) > detectionConfig.getMinDuration()){
-//				logger.trace(String.format("  end  :%.3f(value=%.6f) Duration:%.3f(s)", elapsedTime, value, elapsedTime-startTime));
 				retValue.add(new RegionData(targetAxisString, measureStartTime, mdata.getNodeNo(), startTime, mdata.getElapsedTime(), detectionConfig.getPrebuffer()));
 				startTime = -1.0;
-//				measurementDataList.forEach(x -> logger.trace(" "+x));
 				measurementDataList = null;
 			}
 		} catch (IOException e) {

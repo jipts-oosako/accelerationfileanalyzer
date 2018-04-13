@@ -1,11 +1,11 @@
 package jp.kougiken.sensing.acceleration.fileanalyzer.timedomainextraction.data;
 
 /**
- * 軸毎の情報
+ * Information for each axis - 軸毎の情報
  */
 public class AxisData {
-	/** 全計測データの平均値（G）*/
-	private double globalaverage;
+	/** ゼロ補正前の平均値（G）*/
+	private double originalAverage;
 	/** 軸毎の平均値（G）*/
 	private double average;
 	/** 軸毎の最小値（G）*/
@@ -21,11 +21,11 @@ public class AxisData {
 	}
 
 	/**
-	 * 全計測データの平均値（G）
-	 * @param globalAverage セットする globalAverage
+	 * ゼロ補正前の平均値（G）
+	 * @param originalAverage セットする originalAverage
 	 */
-	public void setGlobalaverage(double globalAverage) {
-		this.globalaverage = globalAverage;
+	public void setOriginalAverage(double originalAverage) {
+		this.originalAverage = originalAverage;
 	}
 	/**
 	 * 軸毎の平均値（G）
@@ -55,7 +55,7 @@ public class AxisData {
 	 * @return globalAverage
 	 */
 	public double getGlobalaverage() {
-		return globalaverage;
+		return originalAverage;
 	}
 	/**
 	 * 軸毎の平均値（G）

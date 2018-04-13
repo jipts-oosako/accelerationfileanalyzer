@@ -11,7 +11,7 @@ import jp.kougiken.sensing.acceleration.common.AppMessages;
 import jp.kougiken.sensing.acceleration.common.Constants;
 
 /**
- *  時間指定の抽出条件
+ *  Time specified extraction condition - 時間指定の抽出条件
  */
 public class ExtractionConfig {
 	/** 定義順序(0～) */

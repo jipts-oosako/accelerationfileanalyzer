@@ -10,8 +10,6 @@
 		<processing>
 			<!-- 並列処理の場合true、順列処理の場合false -->
 			<parallel>true</parallel>
-			<!-- ゼロ補正を行う方法(0:ファイル全体の平均値を用いる、1:抽出結果の平均値を用いる) -->
-			<zerohoseimethod>1</zerohoseimethod>
 		</processing>
 		<!-- GUIの設定内容 -->
 		<guisetting>

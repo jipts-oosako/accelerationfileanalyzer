@@ -3,11 +3,9 @@ package jp.kougiken.sensing.acceleration.fileanalyzer.featurepointsearch.data;
 import java.math.BigDecimal;
 
 /**
- * 最小値、最大値のペア
+ * Minimum value, maximum value pair - 最小値、最大値のペア
  */
 public class MinMaxData {
-
-//	private static final Logger logger = LogManager.getLogger();
 
 	private double min = Double.POSITIVE_INFINITY;
 	private double max = Double.NEGATIVE_INFINITY;

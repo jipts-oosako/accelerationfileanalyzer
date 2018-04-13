@@ -3,7 +3,7 @@ package jp.kougiken.sensing.acceleration.fileanalyzer.featurepointsearch.config;
 import jp.kougiken.sensing.acceleration.common.Constants;
 
 /**
- * 特徴領域の検出条件(軸毎の検出境界値)
+ * Detection boundary value for each axis. - 軸毎の検出境界値
  */
 public class BoundaryConfig {
 	/** 軸のIndex値 */
