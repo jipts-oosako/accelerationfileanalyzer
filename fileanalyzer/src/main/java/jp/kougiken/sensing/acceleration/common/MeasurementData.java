@@ -12,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * 計測データの1行分の情報
+ * Information for one line of measurement data - 計測データの1行分の情報
  */
 public class MeasurementData {
 

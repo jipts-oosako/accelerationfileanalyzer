@@ -51,7 +51,7 @@ import jp.kougiken.sensing.acceleration.fileanalyzer.timedomainextraction.data.C
 import jp.kougiken.sensing.acceleration.fileanalyzer.timedomainextraction.data.DatafileInfo;
 
 /**
- * Time specified region extraction.（時間指定の領域抽出）
+ * Time specified region extraction - 時間指定の領域抽出
  *
  */
 public class TimeDomainExtraction extends SwingWorker<String, String> implements UpdateListener {
@@ -66,9 +66,10 @@ public class TimeDomainExtraction extends SwingWorker<String, String> implements
 
 	private MeasurementConfig measurementConfig = null;
 
-	// 計測ファイルの区切り文字
+	/** 計測ファイルの区切り文字 */
 	private String sysSeparator = "";
-	// 並列処理の実施可否
+
+	/** 並列処理の実施可否 */
 	private boolean sysParallelProcessing = true;
 
 	/**

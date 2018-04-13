@@ -1,7 +1,7 @@
 package jp.kougiken.sensing.acceleration.fileanalyzer.timedomainextraction.data;
 
 /**
- * 軸毎の情報
+ * Information for each axis - 軸毎の情報
  */
 public class AxisData {
 	/** ゼロ補正前の平均値（G）*/

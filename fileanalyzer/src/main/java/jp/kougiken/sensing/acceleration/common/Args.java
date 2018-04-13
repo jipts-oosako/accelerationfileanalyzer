@@ -2,6 +2,9 @@ package jp.kougiken.sensing.acceleration.common;
 
 import org.kohsuke.args4j.Option;
 
+/**
+ * Command line arguments - コマンドライン引数
+ */
 public class Args {
 	// name		:パラメータ名称
 	// aliases	:別名

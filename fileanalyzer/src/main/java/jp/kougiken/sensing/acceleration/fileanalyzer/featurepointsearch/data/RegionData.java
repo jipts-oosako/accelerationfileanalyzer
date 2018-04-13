@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 
 import jp.kougiken.sensing.acceleration.common.CmnFunc;
 
-/** 抽出領域のデータ */
+/**
+ * Data of extraction area - 抽出領域のデータ
+ */
 public class RegionData {
 
 	/** 検出軸 */

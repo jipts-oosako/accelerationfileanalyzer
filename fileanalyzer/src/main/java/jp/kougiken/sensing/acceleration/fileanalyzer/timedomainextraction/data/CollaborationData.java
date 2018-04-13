@@ -6,6 +6,9 @@ import java.util.Map;
 import jp.kougiken.sensing.acceleration.common.Constants;
 import jp.kougiken.sensing.acceleration.fileanalyzer.featurepointsearch.data.MinMaxData;
 
+/**
+ * External link data - 外部連携データ
+ */
 public class CollaborationData {
 	/** 加速度計測ファイルID（＝ファイルのハッシュ値）*/
 	private String measurefileid;

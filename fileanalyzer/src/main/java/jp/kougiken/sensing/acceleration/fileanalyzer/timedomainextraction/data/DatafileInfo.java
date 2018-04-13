@@ -12,7 +12,7 @@ import jp.kougiken.sensing.acceleration.common.CmnFunc;
 import jp.kougiken.sensing.acceleration.common.MeasurementData;
 
 /**
- * 計測データファイルの情報
+ * Measurement data file information - 計測データファイルの情報
  */
 public class DatafileInfo {
     private static final Logger logger = LogManager.getLogger();
@@ -27,7 +27,6 @@ public class DatafileInfo {
 	private double lastElapsedTime = 0.0;
 	/** 計測周波数(Hz) */
 	private double frequency = 0.0;
-
 
 	/**
 	 * コンストラクタ

@@ -5,6 +5,9 @@ import java.io.StringWriter;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+/*
+ * Error message dialog
+ */
  class ShowDialog {
     static void showErrorDialog(final Throwable t) {
         try {

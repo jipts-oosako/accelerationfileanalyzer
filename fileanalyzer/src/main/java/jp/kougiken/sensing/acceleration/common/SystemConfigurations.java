@@ -12,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * システム コンフィグファイルの読み込み
+ * System setting - システム設定
  */
 public class SystemConfigurations {
 	private static SystemConfigurations singleton = null;
@@ -32,9 +32,10 @@ public class SystemConfigurations {
 
 	private static final String DEFAULT_CONFIGFILE = "systemconfig.xml";
 
-	// システム設定ファイル
+	/** システム設定ファイル */
 	private File configfile;
-	// システム設定ファイルの内容
+
+	/** システム設定ファイルの内容 */
 	private XMLConfiguration config;
 
 	/** 計測ファイルの項目の区切り文字 */
@@ -101,9 +102,6 @@ public class SystemConfigurations {
 
 			// 特徴領域の検索の設定ファイル
 			config.setProperty("system.guisetting.settingfilefps", settingfilefps);
-
-			//文字コードの指定ができない！
-//			FileWriter fw = new FileWriter(this.configfile);
 
 			try(FileOutputStream fo = new FileOutputStream(this.configfile);
 				OutputStreamWriter ow = new OutputStreamWriter(fo, "UTF-8");){

@@ -12,7 +12,7 @@ import org.apache.commons.configuration2.tree.ImmutableNode;
 import jp.kougiken.sensing.acceleration.common.Constants;
 
 /**
- * 特徴領域の検出条件
+ * Setting detection condition of characteristic area - 特徴領域の検出条件の設定
  */
 public class DetectionConfig {
 	/** 0と見なす値(gal)(正負共通) */

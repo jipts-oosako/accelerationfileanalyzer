@@ -27,7 +27,7 @@ import jp.kougiken.sensing.acceleration.common.AppMessages;
 import jp.kougiken.sensing.acceleration.common.Constants;
 
 /**
- * 計測データの条件設定
+ * Condition of measurement data - 計測データの条件
  */
 public class MeasurementConfig {
     private static final Logger logger = LogManager.getLogger();

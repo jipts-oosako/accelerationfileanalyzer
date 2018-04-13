@@ -37,6 +37,9 @@ import jp.kougiken.sensing.acceleration.common.SystemConfigurations;
 import jp.kougiken.sensing.acceleration.fileanalyzer.featurepointsearch.logic.FeaturePointSearch;
 import jp.kougiken.sensing.acceleration.fileanalyzer.timedomainextraction.logic.TimeDomainExtraction;
 
+/**
+ * Operation screen - 操作画面
+ */
 public class MainFrame extends JFrame {
 	private static final Logger logger = LogManager.getLogger();
 

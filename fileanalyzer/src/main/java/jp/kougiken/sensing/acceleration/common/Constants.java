@@ -4,6 +4,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
+/**
+ * Constant value - 定数値
+ */
 public class Constants {
 	public static final int AXIS_X = 0;
 	public static final int AXIS_Y = 1;

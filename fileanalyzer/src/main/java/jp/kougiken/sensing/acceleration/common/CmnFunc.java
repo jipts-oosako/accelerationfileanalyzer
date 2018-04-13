@@ -9,6 +9,9 @@ import java.nio.file.Path;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+/**
+ * Common function - 共通関数
+ */
 public class CmnFunc {
 
 	/**
@@ -43,8 +46,6 @@ public class CmnFunc {
 			rt.exec(cmd);
 		} catch (IOException e) {
 		}
-//		ProcessBuilder pb = new ProcessBuilder("C:\\Program Files\\Internet Explorer\\iexplore.exe");
-//		pb.start();
 	}
 
 	/**
